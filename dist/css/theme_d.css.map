@@ -3,7 +3,7 @@
 	"file": "theme_d.css",
 	"sources": [
 		"../../theme_d.scss",
-		"../../_variables.scss",
+		"../../_colors.scss",
 		"../../header/_large.scss",
 		"../../wrap/_large.scss"
 	],
