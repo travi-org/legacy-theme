@@ -2,5 +2,9 @@ options:
   sourceMap: true
 
 dist:
-  src: scss/theme.scss
-  dest: dist/css/theme.scss
+  files:
+    - expand: true
+      cwd: scss
+      src: '**/*.scss'
+      dest: dist/css
+      ext: .css

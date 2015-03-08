@@ -1,6 +1,6 @@
 {
 	"version": 3,
-	"file": "theme.scss",
+	"file": "theme.css",
 	"sources": [
 		"../../theme.scss",
 		"../../_variables.scss",
