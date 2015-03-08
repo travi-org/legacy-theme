@@ -12,4 +12,12 @@ header h1, header h1 a, header h1 a:visited, header h1 a:active {
   font-style: normal;
   font-variant: normal; }
 
+#wrap {
+  color: #111;
+  background: #e0e0e0;
+  text-align: left; }
+
+#content {
+  padding: 0; }
+
 /*# sourceMappingURL=theme.css.map */
