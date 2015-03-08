@@ -1,0 +1,6 @@
+options:
+  sourceMap: true
+
+dist:
+  src: scss/theme.scss
+  dest: dist/css/theme.scss
