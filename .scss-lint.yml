@@ -1,0 +1,3 @@
+linters:
+  IdSelector:
+    enabled: false
