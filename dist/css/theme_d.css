@@ -40,4 +40,8 @@ header {
 footer {
   text-align: right; }
 
+#enhancementVersion {
+  float: left;
+  margin: 0; }
+
 /*# sourceMappingURL=theme_d.css.map */
