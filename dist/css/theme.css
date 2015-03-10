@@ -22,7 +22,7 @@ header h1, header h1 a, header h1 a:visited, header h1 a:active {
 
 footer {
   background-color: transparent;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #111;
   font-size: .75em;
   font-variant: small-caps;
   margin-top: 5px; }
