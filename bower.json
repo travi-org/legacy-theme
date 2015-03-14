@@ -1,0 +1,18 @@
+{
+  "name": "travi.org-theme",
+  "homepage": "https://github.com/travi/travi.org-theme",
+  "authors": [
+    "Matt Travi"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "travi-framework": "~0.10.0"
+  }
+}
