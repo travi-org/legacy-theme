@@ -338,6 +338,32 @@ h1, h1 a, h1 a:visited, h1 a:active {
   font-weight: normal;
   text-shadow: 5px 5px 5px #111; }
 
+h2, .entity-list-header {
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #000;
+  color: #000;
+  background: #c80000;
+  font: 1.75em Impact, sans-serif;
+  font-variant: small-caps;
+  text-align: left; }
+
+h2 .sectionNav {
+  font-size: .55em;
+  float: right;
+  font-family: "Trebuchet MS", sans-serif; }
+
+h2 ul.sectionNav {
+  margin: -5px 0 0;
+  padding: 0;
+  list-style-type: none; }
+  h2 ul.sectionNav li {
+    margin: 0;
+    padding: 0; }
+
+h2 a, h2 a:active, h2 a:visited {
+  color: #000; }
+
 header {
   font-family: "Franklin Gothic Demi Cond", sans-serif;
   font-variant: small-caps;
