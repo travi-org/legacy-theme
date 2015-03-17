@@ -24,10 +24,10 @@
       cursor: not-allowed;
       opacity: .3; }
 .js button.slide-right {
-  background-image: url('/resources/thirdparty/travi.org-theme/img/arrow_right_dark.gif');
+  background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_right_dark.gif');
   right: 10px; }
 .js button.slide-left {
-  background-image: url('/resources/thirdparty/travi.org-theme/img/arrow_left_dark.gif');
+  background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_left_dark.gif');
   left: 10px; }
 
 /*# sourceMappingURL=gallery_d.css.map */
