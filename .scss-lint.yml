@@ -1,6 +1,12 @@
+#https://github.com/causes/scss-lint/blob/master/config/default.yml
+
 linters:
   IdSelector:
     enabled: false
 
   SelectorFormat:
     enabled: false
+
+  NestingDepth:
+    enabled: true
+    max_depth: 4
