@@ -9,20 +9,20 @@
 .js #thumbContainer {
   height: 91px;
   position: relative; }
-  .js #thumbContainer button {
-    background: no-repeat scroll 0 0 transparent;
-    border: 0;
-    display: inline;
-    height: 73px;
-    opacity: .7;
-    position: absolute;
-    top: 13px;
-    width: 19px; }
-    .js #thumbContainer button:hover {
-      opacity: 1; }
-    .js #thumbContainer button.at-limit, .js #thumbContainer button.at-limit:hover {
-      cursor: not-allowed;
-      opacity: .3; }
+  .js #thumbContainer button:hover {
+    opacity: 1; }
+  .js #thumbContainer button.at-limit, .js #thumbContainer button.at-limit:hover {
+    cursor: not-allowed;
+    opacity: .3; }
+.js button.slide-left, .js button.slide-right {
+  background: no-repeat scroll 0 0 transparent;
+  border: 0;
+  display: inline;
+  height: 73px;
+  opacity: .7;
+  position: absolute;
+  top: 13px;
+  width: 19px; }
 .js button.slide-right {
   background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_right_dark.gif');
   right: 10px; }
