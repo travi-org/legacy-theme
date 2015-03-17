@@ -15,6 +15,18 @@
     position: relative;
 
     button {
+      display: inline;
+      opacity: .7;
+      top: 13px;
+
+      &.slide-right {
+        right: 10px;
+      }
+
+      &.slide-left {
+        left: 10px;
+      }
+
       &:hover {
         opacity: 1;
       }
@@ -32,22 +44,17 @@
     &.slide-right {
       background: no-repeat scroll 0 0 transparent;
       border: 0;
-      display: inline;
       height: 73px;
-      opacity: .7;
       position: absolute;
-      top: 13px;
       width: 19px;
     }
 
     &.slide-right {
       background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_right_dark.gif');
-      right: 10px;
     }
 
     &.slide-left {
       background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_left_dark.gif');
-      left: 10px;
     }
 
   }
