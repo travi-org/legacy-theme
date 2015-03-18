@@ -1,0 +1,29 @@
+#albumMenu {
+  padding: 12px;
+  color: #666;
+  background: #bbb;
+  margin: 0 0 5px;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+
+  a {
+    color: #666;
+    text-decoration: none;
+
+    &:active {
+      color: #999;
+    }
+
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+ul.pagination {
+  text-align: center;
+  float: none;
+
+  a {
+    color: #000;
+  }
+}
