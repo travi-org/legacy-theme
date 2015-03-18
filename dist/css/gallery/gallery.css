@@ -1,9 +1,9 @@
 #albumMenu {
-  padding: 12px;
-  color: #666;
   background: #bbb;
+  color: #666;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
   margin: 0 0 5px;
-  font-family: Verdana, Helvetica, Arial, sans-serif; }
+  padding: 12px; }
   #albumMenu a {
     color: #666;
     text-decoration: none; }
@@ -12,11 +12,11 @@
     #albumMenu a:hover {
       color: #333; }
 
-ul.pagination {
-  text-align: center;
-  float: none; }
-  ul.pagination a {
-    color: #000; }
+.pagination {
+  float: none;
+  text-align: center; }
+  .pagination a {
+    color: #111; }
 
 #thumbs {
   margin: 5px; }

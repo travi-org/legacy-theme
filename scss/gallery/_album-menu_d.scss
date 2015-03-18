@@ -3,10 +3,10 @@
   margin: 0;
 
   li {
-    list-style: none;
     display: inline-block;
-    text-align: center;
+    list-style: none;
     padding: 10px;
+    text-align: center;
     width: 160px;
 
     img {
@@ -15,29 +15,29 @@
   }
 }
 
-html.js {
+.js {
   #albumList {
     display: none;
   }
 
   #albumMenu {
-    padding: 4px 0 6px 40px;
-    height: 14px;
     font-size: 10px;
+    height: 14px;
     line-height: 12px;
+    padding: 4px 0 6px 40px;
 
     a {
+      font-size: 12px;
       font-style: normal;
       font-weight: bold;
-      font-size: 12px;
     }
 
     > ul > li {
-      width: 105px;
+      border-left: 1px solid $another-grey;
       height: 14px;
-      padding: 0 5px;
       margin: 0;
-      border-left: 1px solid #666;
+      padding: 0 5px;
+      width: 105px;
     }
   }
 
@@ -51,8 +51,8 @@ html.js {
 }
 
 .menuBar > li {
-  vertical-align: top;
   display: inline-block;
+  vertical-align: top;
 
   > ul {
     margin-left: 15px;
@@ -61,22 +61,22 @@ html.js {
 
 #albumMenu {
   .ui-icon {
+    background-image: url('/resources/css/travi-ui-theme/images/ui-icons_999999_256x240.png');
     display: inline-block;
     vertical-align: middle;
-    background-image: url('/resources/css/travi-ui-theme/images/ui-icons_999999_256x240.png');
   }
 
-  ul.ui-menu {
+  .ui-menu {
     z-index: 10;
 
     a {
-      color: #999;
+      color: $yet-another-grey;
     }
   }
 
   li em {
+    font-size: smaller;
     font-style: normal;
     font-weight: bold;
-    font-size: smaller;
   }
 }
