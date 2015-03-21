@@ -12,8 +12,8 @@ travi.test.testCase('VideoTests', (function () {
         mobile: 'mobile.mpv',
         standard: 'standard.mpv',
         highDef: 'highDef.mpv',
-        width: 500,
-        height: 300,
+        width: '500',
+        height: '300',
 
         setUp: function () {
             $('body').append($.render.thumbs({
@@ -75,8 +75,8 @@ travi.test.testCase('VideoTests', (function () {
             sinon.assert.calledOnce(sublimevideo.unprepare);
             sinon.assert.calledWith(sublimevideo.unprepare, 'stagedVideo');
 
-            assertEquals(0, $('#stagedVideo').length);
-            assertEquals(0, $('a.sublime').length);
+            assert.equals(0, $('#stagedVideo').length);
+            assert.equals(0, $('a.sublime').length);
         },
 
         'test video not unloaded when does not exist': function () {
@@ -88,7 +88,7 @@ travi.test.testCase('VideoTests', (function () {
         'test lightbox-closed event triggered on stop': function () {
             sinon.assert.calledOnce(sublimevideo.onStop);
             var onStopCallback = sublimevideo.onStop.getCall(0).args[0];
-            assertFunction(onStopCallback);
+            assert.isFunction(onStopCallback);
 
             onStopCallback();
 
@@ -98,26 +98,26 @@ travi.test.testCase('VideoTests', (function () {
 
         assertVideoAnchorPreparedProperly: function () {
             var $videoAnchor = $('body').find('a.sublime');
-            assertEquals(1, $videoAnchor.length);
-            assertEquals(this.mobile, $videoAnchor.attr('href'));
+            assert.equals(1, $videoAnchor.length);
+            assert.equals(this.mobile, $videoAnchor.attr('href'));
         },
 
         assertVideoStagingPreparedProperly: function () {
             var $videoStage = $('body').find('video.sublime.lightbox'),
                 sources = $videoStage.find('source');
 
-            assertEquals(this.width, $videoStage.attr('width'));
-            assertEquals(this.height, $videoStage.attr('height'));
+            assert.equals(this.width, $videoStage.attr('width'));
+            assert.equals(this.height, $videoStage.attr('height'));
 
-            assertEquals(1, $videoStage.length);
-            assertEquals('stagedVideo', $videoStage.attr('id'));
-            assertEquals('none', $videoStage.attr('preload'));
+            assert.equals(1, $videoStage.length);
+            assert.equals('stagedVideo', $videoStage.attr('id'));
+            assert.equals('none', $videoStage.attr('preload'));
 
-            assertEquals(3, sources.length);
-            assertEquals(this.highDef, sources.eq(0).attr('src'));
-            assertEquals('hd', sources.eq(0).data('quality'));
-            assertEquals(this.standard, sources.eq(1).attr('src'));
-            assertEquals(this.mobile, sources.eq(2).attr('src'));
+            assert.equals(3, sources.length);
+            assert.equals(this.highDef, sources.eq(0).attr('src'));
+            assert.equals('hd', sources.eq(0).data('quality'));
+            assert.equals(this.standard, sources.eq(1).attr('src'));
+            assert.equals(this.mobile, sources.eq(2).attr('src'));
         }
     };
 }()));
