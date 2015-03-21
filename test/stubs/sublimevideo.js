@@ -1,13 +1,13 @@
-var sublimevideo = function () {
+var sublimevideo = (function () {
     'use strict';
 
     return {
         prepareAndPlay: function (videoId) {},
-        load: $.noop(),
+        load: $.noop,
         unprepare: function (videoId) {},
         onStop: function (callback) {},
         ready: function (callback) {
             callback();
         }
     };
-};
+}());

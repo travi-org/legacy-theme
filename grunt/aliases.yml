@@ -4,8 +4,10 @@ verify:
   - lint
   - test
 
-lint: scsslint
 test: karma
+lint:
+  - scsslint
+  - jslint
 
 build:
   - clean

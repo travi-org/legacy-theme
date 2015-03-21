@@ -1,8 +1,8 @@
-var Reflection = function () {
+var Reflection = (function () {
     'use strict';
 
     return {
-        add: $.noop(),
-        remove: $.noop()
+        add: $.noop,
+        remove: $.noop
     };
-};
+}());
