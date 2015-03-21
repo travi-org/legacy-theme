@@ -1,0 +1,123 @@
+/*global sublimevideo */
+travi.test.testCase('VideoTests', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+        events: travi.events,
+        player: travi.video.player,
+
+        original: 'original.jpg',
+        preview: 'preview.jpg',
+        mobile: 'mobile.mpv',
+        standard: 'standard.mpv',
+        highDef: 'highDef.mpv',
+        width: 500,
+        height: 300,
+
+        setUp: function () {
+            $('body').append($.render.thumbs({
+                original: this.original,
+                preview: this.preview,
+                mobile: this.mobile,
+                standard: this.standard,
+                highDef: this.highDef
+            }));
+
+            sinon.stub(this.events, 'publish');
+
+            sinon.spy(sublimevideo, 'load');
+            sinon.spy(sublimevideo, 'unprepare');
+            sinon.spy(sublimevideo, 'onStop');
+
+            this.player.init();
+        },
+
+        tearDown: function () {
+            this.common.restore([
+                sublimevideo.load,
+                sublimevideo.unprepare,
+                sublimevideo.prepareAndPlay,
+                sublimevideo.onStop,
+                this.events.publish
+            ]);
+            this.player.unload();
+        },
+
+        'test sublime player initialized so its ready to play a video': function () {
+            sinon.assert.calledOnce(sublimevideo.load);
+        },
+
+        'test preview prepared properly for video': function () {
+            this.player.prepare(this.mobile, this.standard, this.highDef, {
+                width: this.width,
+                height: this.height
+            });
+
+            this.assertVideoAnchorPreparedProperly();
+            this.assertVideoStagingPreparedProperly();
+        },
+
+        'test clicking on video preview plays video': function () {
+            sinon.spy(sublimevideo, 'prepareAndPlay');
+
+            this.player.play();
+
+            sinon.assert.calledOnce(sublimevideo.prepareAndPlay);
+            sinon.assert.calledWith(sublimevideo.prepareAndPlay, 'stagedVideo');
+        },
+
+        'test video unloaded when exists': function () {
+            $('body').append('<a class="sublime"></a><video id="stagedVideo"></video>');
+
+            this.player.unload();
+
+            sinon.assert.calledOnce(sublimevideo.unprepare);
+            sinon.assert.calledWith(sublimevideo.unprepare, 'stagedVideo');
+
+            assertEquals(0, $('#stagedVideo').length);
+            assertEquals(0, $('a.sublime').length);
+        },
+
+        'test video not unloaded when does not exist': function () {
+            this.player.unload();
+
+            refute.called(sublimevideo.unprepare);
+        },
+
+        'test lightbox-closed event triggered on stop': function () {
+            sinon.assert.calledOnce(sublimevideo.onStop);
+            var onStopCallback = sublimevideo.onStop.getCall(0).args[0];
+            assertFunction(onStopCallback);
+
+            onStopCallback();
+
+            sinon.assert.calledOnce(this.events.publish);
+            sinon.assert.calledWith(this.events.publish, this.player.events.LIGHTBOX_CLOSED);
+        },
+
+        assertVideoAnchorPreparedProperly: function () {
+            var $videoAnchor = $('body').find('a.sublime');
+            assertEquals(1, $videoAnchor.length);
+            assertEquals(this.mobile, $videoAnchor.attr('href'));
+        },
+
+        assertVideoStagingPreparedProperly: function () {
+            var $videoStage = $('body').find('video.sublime.lightbox'),
+                sources = $videoStage.find('source');
+
+            assertEquals(this.width, $videoStage.attr('width'));
+            assertEquals(this.height, $videoStage.attr('height'));
+
+            assertEquals(1, $videoStage.length);
+            assertEquals('stagedVideo', $videoStage.attr('id'));
+            assertEquals('none', $videoStage.attr('preload'));
+
+            assertEquals(3, sources.length);
+            assertEquals(this.highDef, sources.eq(0).attr('src'));
+            assertEquals('hd', sources.eq(0).data('quality'));
+            assertEquals(this.standard, sources.eq(1).attr('src'));
+            assertEquals(this.mobile, sources.eq(2).attr('src'));
+        }
+    };
+}()));

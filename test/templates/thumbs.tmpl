@@ -1,0 +1,13 @@
+<div class="section">
+    <div id="thumbContainer">
+        <ul id="thumbs">
+            {{for thumbs}}<li>
+                <a href="{{>original}}">
+                    <img src="{{>thumb}}" data-preview="{{>preview}}"{{if mobile}}
+                        data-mobile="{{>mobile}}" data-standard="{{>standard}}" data-hd="{{>hd}}" data-width="{{>width}}" data-height="{{>height}}"
+                    {{/if}}/>
+                </a>
+            </li>{{/for}}
+        </ul>
+    </div>
+</div>
