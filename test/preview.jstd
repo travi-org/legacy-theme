@@ -1,0 +1,216 @@
+/*global Reflection*/
+travi.test.testCase('GalleryPreviewTests', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+        previewPane: travi.photos.previewPane,
+        gallery: travi.photos.gallery,
+        templates: travi.templates,
+        player: travi.video.player,
+
+        original: 'original.jpg',
+        preview: 'preview.jpg',
+        mobile: 'mobile.mpv',
+        standard: 'standard.mpv',
+        highDef: 'highDef.mpv',
+        width: 50,
+        height: 60,
+
+        setUp: function () {
+            $('body').html($.render.thumbs({
+                thumbs: [
+                    {
+                        original: this.original,
+                        preview: this.preview
+                    },
+                    {
+                        original: this.original,
+                        preview: this.preview
+                    }
+                ]
+            }));
+
+            sinon.stub(this.player, 'prepare');
+            sinon.spy(this.player, 'play');
+
+            this.previewPane.init();
+
+            sinon.spy(this.player, 'unload');
+        },
+
+        tearDown: function () {
+            $('body').unbind('previewLoaded');
+
+            this.common.restore([
+                this.player.prepare,
+                this.player.play,
+                this.player.unload,
+                Reflection.add,
+                Reflection.remove
+            ]);
+        },
+
+        'test preview pane is initialized': function () {
+            var $imageContainer = $('#imageContainer');
+
+            assert.equals(1, $imageContainer.length);
+            assert.equals(1, $imageContainer.find('a').length);
+
+            assert.equals(2, $imageContainer.find('img').length);
+            assert.equals(1, $imageContainer.find('a img').length);
+
+            assert.equals(1, $imageContainer.find('img#preview_loading').length);
+            assert.equals(
+                '/resources/thirdparty/travi-styles/img/progress/large-loading.gif',
+                $imageContainer.find('img#preview_loading').attr('src')
+            );
+        },
+
+        'test reflection shown once preview has loaded': function () {
+            sinon.spy(Reflection, 'add');
+
+            refute.called(Reflection.add);
+
+            $('#preview_pos').trigger('load');
+
+            sinon.assert.calledOnce(Reflection.add);
+        },
+
+        'test appropriate class set based on media type': function () {
+            var $thumbs = $('#thumbs'),
+                $imageContainer = $('#imageContainer'),
+                $body = $('body'),
+                $a = $thumbs.find('a').eq(0);
+
+            $body.trigger('previewLoaded');
+
+            assert.isTrue($imageContainer.hasClass('image'));
+            assert.isFalse($imageContainer.hasClass('video'));
+
+            this.setUpVideoThumbnail();
+            this.previewPane.switchPreviewImage($a);
+            $body.trigger('previewLoaded');
+
+            assert.isFalse($imageContainer.hasClass('image'));
+            assert.isTrue($imageContainer.hasClass('video'));
+
+            $thumbs.find('img').removeData('mobile');
+            this.previewPane.switchPreviewImage($a);
+            $body.trigger('previewLoaded');
+
+            assert.isTrue($imageContainer.hasClass('image'));
+            assert.isFalse($imageContainer.hasClass('video'));
+        },
+
+        'test preview prepared properly for video': function () {
+            var $previewImage = $('#preview_pos'),
+                $previewLink = $previewImage.closest('a');
+            this.setUpVideoThumbnail();
+
+            this.previewPane.switchPreviewImage($('#thumbs a').eq(0));
+            $('body').trigger('previewLoaded');
+
+            assert.equals(this.preview, $previewImage.attr('src'));
+            assert.equals(this.mobile, $previewLink.attr('href'));
+
+            sinon.assert.calledOnce(this.player.prepare);
+            sinon.assert.calledWith(this.player.prepare, this.mobile, this.standard, this.highDef, {
+                height: this.height,
+                width: this.width
+            });
+
+            assert.isTrue($('#imageContainer').hasClass('video'));
+        },
+
+        'test clicking on video preview plays video': function () {
+            var click = new $.Event('click');
+            sinon.spy(click, 'preventDefault');
+            sinon.spy(click, 'stopPropagation');
+            this.setUpVideoThumbnail();
+
+            this.previewPane.switchPreviewImage($('#thumbs').find('a').eq(0));
+            $('body').trigger('previewLoaded');
+
+            $('#preview_pos').trigger(click);
+
+            sinon.assert.calledOnce(click.preventDefault);
+            sinon.assert.calledOnce(click.stopPropagation);
+            sinon.assert.calledOnce(this.player.play);
+        },
+
+        'test clicking on video after loading video twice only attempts to play once': function () {
+            var click = new $.Event('click'),
+                $thumbs = $('#thumbs'),
+                $body = $('body');
+            sinon.spy(click, 'preventDefault');
+            sinon.spy(click, 'stopPropagation');
+            this.setUpVideoThumbnail();
+
+            this.previewPane.switchPreviewImage($thumbs.find('a').eq(0));
+            $body.trigger('previewLoaded');
+
+            this.previewPane.switchPreviewImage($thumbs.find('a').eq(0));
+            $body.trigger('previewLoaded');
+
+            $('#preview_pos').trigger(click);
+
+            sinon.assert.calledOnce(this.player.play);
+        },
+
+        'test clicking on image after unloading video wont attempt to play video': function () {
+            var click = new $.Event('click'),
+                $thumbs = $('#thumbs'),
+                $body = $('body');
+            sinon.spy(click, 'preventDefault');
+            sinon.spy(click, 'stopPropagation');
+            this.setUpVideoThumbnail();
+
+            this.previewPane.switchPreviewImage($thumbs.find('a').eq(0));
+            $body.trigger('previewLoaded');
+
+            this.previewPane.switchPreviewImage($thumbs.find('a').eq(1));
+            $body.trigger('previewLoaded');
+
+            $('#preview_pos').trigger(click);
+
+            sinon.assert.notCalled(this.player.play);
+        },
+
+        'test video unloaded when exists': function () {
+            this.previewPane.switchPreviewImage($('#thumbs').find('a').eq(0));
+
+            sinon.assert.calledOnce(this.player.unload);
+        },
+
+        setUpVideoThumbnail: function () {
+            var $thumb = $('#thumbs').find('img').eq(0);
+            $thumb.data('mobile', this.mobile);
+            $thumb.data('standard', this.standard);
+            $thumb.data('high-def', this.highDef);
+            $thumb.data('width', this.width);
+            $thumb.data('height', this.height);
+        },
+
+        assertVideoAnchorPreparedProperly: function ($imageContainer) {
+            var $videoAnchor = $imageContainer.find('a.sublime');
+            assert.equals(1, $videoAnchor.length);
+            assert.equals(this.mobile, $videoAnchor.attr('href'));
+        },
+
+        assertVideoStagingPreparedProperly: function ($imageContainer) {
+            var $videoStage = $imageContainer.find('video.sublime.lightbox'),
+                sources = $videoStage.find('source');
+
+            assert.equals(1, $videoStage.length);
+            assert.equals('stagedVideo', $videoStage.attr('id'));
+            assert.equals('none', $videoStage.attr('preload'));
+
+            assert.equals(3, sources.length);
+            assert.equals(this.highDef, sources.eq(0).attr('src'));
+            assert.equals('hd', sources.eq(0).data('quality'));
+            assert.equals(this.standard, sources.eq(1).attr('src'));
+            assert.equals(this.mobile, sources.eq(2).attr('src'));
+        }
+    };
+}()));
