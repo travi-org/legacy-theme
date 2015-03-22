@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "travi-test-utils": "~0.5.1"
+  },
+  "resolutions": {
+    "jquery": "1.11.x"
   }
 }
