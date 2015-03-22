@@ -1,0 +1,82 @@
+travi.test.testCase('ThumbCarouselTests', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+        carousel: travi.photos.carousel,
+
+        OUTER_WIDTH: 150,
+        LIMIT_CLASS: 'at-limit',
+
+        setUp: function () {
+            $('body').append($.render.thumbs({}));
+
+            sinon.stub($.fn, 'outerWidth').returns(this.OUTER_WIDTH);
+
+            travi.photos.carousel.init();
+
+            this.$leftButton = $('button.slide-left');
+            this.$rightButton = $('button.slide-right');
+        },
+
+        tearDown: function () {
+            travi.test.common.restore([
+                $.fn.animate,
+                $.fn.prop,
+                $.fn.scrollLeft,
+                $.fn.outerWidth
+            ]);
+
+            $('.section, #imageContainer').remove();
+        },
+
+        'test forward and back carousel buttons added to page': function () {
+            assert.equals(2, $('button').length);
+        },
+
+        'test carousel scrolling': function () {
+            assert.isFunction(this.carousel.scroll);
+
+            var animate = sinon.spy($.fn, 'animate');
+
+            this.carousel.init();
+            this.carousel.scroll(this.carousel.directions.RIGHT);
+
+            assert(animate.calledOnce);
+            assert(animate.calledWith({scrollLeft: '+=' + this.OUTER_WIDTH}, 'slow'));
+        },
+
+        'test left scroll button disabled on init': function () {
+            assert.isTrue(this.$leftButton.hasClass(this.LIMIT_CLASS));
+            assert.isFalse(this.$rightButton.hasClass(this.LIMIT_CLASS));
+        },
+
+        'test neither button disabled when in middle of thumb list': function () {
+            sinon.stub($.fn, 'scrollLeft').returns(50);
+
+            this.$rightButton.click();
+
+            assert.isFalse(this.$leftButton.hasClass(this.LIMIT_CLASS));
+            assert.isFalse(this.$rightButton.hasClass(this.LIMIT_CLASS));
+        },
+
+        'test right button disabled when at end of thumb list': function () {
+            sinon.stub($.fn, 'scrollLeft').returns(100);
+            sinon.stub($.fn, 'prop').withArgs('scrollWidth').returns(250);
+
+            this.$rightButton.click();
+
+            assert.isFalse(this.$leftButton.hasClass(this.LIMIT_CLASS));
+            assert.isTrue(this.$rightButton.hasClass(this.LIMIT_CLASS));
+        },
+
+        'test left button disabled when back at beginning of thumb list': function () {
+            sinon.stub($.fn, 'scrollLeft').returns(0);
+
+            this.$leftButton.click();
+
+            assert.isTrue(this.$leftButton.hasClass(this.LIMIT_CLASS));
+            assert.isFalse(this.$rightButton.hasClass(this.LIMIT_CLASS));
+        }
+    };
+}()));
