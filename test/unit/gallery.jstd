@@ -1,0 +1,52 @@
+travi.test.testCase('GalleryTest', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+
+        previewPane: travi.photos.previewPane,
+        gallery: travi.photos.gallery,
+
+        setUp: function () {
+            $('body').html($.render.thumbs({thumbs: [
+                {}
+            ]}));
+
+            sinon.stub(this.previewPane, 'switchPreviewImage');
+
+            this.gallery.init();
+        },
+
+        tearDown: function () {
+            this.common.restore(this.previewPane.switchPreviewImage);
+        },
+
+        'test preview of first thumb loaded to preview pane': function () {
+            sinon.assert.calledOnce(this.previewPane.switchPreviewImage);
+            assert.equals(
+                $('#thumbs li:first a').get(0),
+                this.previewPane.switchPreviewImage.getCall(0).args[0].get(0)
+            );
+        },
+
+        'test clicking on thumbnail loads preview of that image': function () {
+            var $thumbs = $('#thumbs');
+
+            $('li').eq(0).click();
+
+            assert.equals(
+                $thumbs.find('li:first a').get(0),
+                this.previewPane.switchPreviewImage.getCall(1).args[0].get(0)
+            );
+
+            $thumbs.append('<li><a><img/></a></li>');
+
+            $('a img').eq(1).click();
+
+            assert.equals(
+                $('a').get(1),
+                this.previewPane.switchPreviewImage.getCall(2).args[0].get(0)
+            );
+        }
+    };
+}()));
