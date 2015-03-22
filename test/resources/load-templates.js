@@ -3,7 +3,7 @@ $.ajaxSetup({
 });
 
 travi.templates.init();
-//travi.templates.preLoad('thumbnail', '/base/doc_root/resources/templates/thumbnail.tmpl');
+travi.templates.preLoad('thumbnail', '/base/templates/thumbnail.tmpl');
 travi.templates.preLoad('videoStage', '/base/templates/videoStage.tmpl');
 travi.templates.preLoad('previewPane', '/base/templates/previewPane.tmpl');
 //travi.templates.preLoad('announcementItem', '/base/doc_root/resources/templates/announcementItem.tmpl');

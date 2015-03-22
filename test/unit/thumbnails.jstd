@@ -1,0 +1,156 @@
+travi.test.testCase('ThumbnailListTest', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+
+        thumbs: travi.photos.thumbnails,
+
+        nextLink: 'some-url?offset=',
+        firstOffset: 10,
+
+        setUp: function () {
+            $('body')
+                .append($.render.thumbs({thumbs: [ {} ]}))
+                .prepend('<a class="more" href="some-other-url"></a>');
+            $('#thumbContainer').append(
+                '<a class="more" href="' + this.nextLink + this.firstOffset + '">more</a>'
+            );
+
+            this.$thumbsList = $('#thumbs');
+        },
+
+        tearDown: function () {
+            this.common.restore($.ajax);
+        },
+
+        'test more thumbnails loaded on init': function () {
+            sinon.stub($, 'ajax', function (options) {
+                options.success({
+                    images: []
+                });
+            });
+
+            this.thumbs.init();
+
+            sinon.assert.calledOnce($.ajax);
+            var call = $.ajax.getCall(0);
+            assert.equals(this.nextLink + this.firstOffset, call.args[0].url);
+        },
+
+        'test more thumbnails not requested if "more" link not present': function () {
+            sinon.stub($, 'ajax');
+            $('#thumbContainer').find('a.more').remove();
+
+            this.thumbs.init();
+
+            refute.called($.ajax);
+        },
+
+        'test thumbs requested until none remain': function () {
+            var callCount = 0,
+                nextOffset = 15;
+
+            sinon.stub($, 'ajax', function (options) {
+                callCount += 1;
+
+                if (callCount === 1) {
+                    options.success({
+                        images: [],
+                        nextOffset: nextOffset,
+                        total: 45
+                    });
+                } else {
+                    options.success({
+                        images: [],
+                        nextOffset: 45,
+                        total: 45
+                    });
+                }
+            });
+
+            this.thumbs.init();
+
+            sinon.assert.calledTwice($.ajax);
+            assert.equals(this.nextLink + this.firstOffset, $.ajax.getCall(0).args[0].url);
+            assert.equals(this.nextLink + nextOffset, $.ajax.getCall(1).args[0].url);
+        },
+
+        'test video added to thumb list correctly': function () {
+            var $thumbImgs,
+                thumb1 = 'thumbnail.jpg',
+                mobile = 'mobile.mpv',
+                standard = 'standard.mpv',
+                highDef = 'high-def.mpv';
+
+            sinon.stub($, 'ajax', function (options) {
+                options.success({
+                    images: [
+                        {
+                            mobile: mobile,
+                            standard: standard,
+                            highDef: highDef,
+                            thumbnail: {
+                                url: thumb1
+                            }
+                        }
+                    ]
+                });
+            });
+
+            this.thumbs.init();
+
+            assert.equals(2, this.$thumbsList.find('li').length);
+
+            $thumbImgs = this.$thumbsList.find('img');
+            assert.equals(thumb1, $thumbImgs.eq(1).attr('src'));
+            assert.equals(mobile, $thumbImgs.eq(1).data('mobile'));
+            assert.equals(standard, $thumbImgs.eq(1).data('standard'));
+            assert.equals(highDef, $thumbImgs.eq(1).data('high-def'));
+
+            assert.equals(mobile, this.$thumbsList.find('a').eq(1).attr('href'));
+        },
+
+        'test returned images added to thumb list': function () {
+            var $thumbImgs,
+                thumb1 = 'thumbnail.jpg',
+                thumb2 = 'thumbnail2.jpg',
+                preview = 'preview.jpg',
+                original = 'original.jpg';
+
+            sinon.stub($, 'ajax', function (options) {
+                options.success({
+                    images: [
+                        {
+                            thumbnail: {
+                                url: thumb1
+                            },
+                            original: original,
+                            preview: preview
+                        },
+                        {
+                            thumbnail: {
+                                url: thumb2
+                            }
+                        }
+                    ]
+                });
+            });
+
+            assert.equals(1, this.$thumbsList.find('li').length);
+
+            this.thumbs.init();
+
+            assert.equals(3, this.$thumbsList.find('li').length);
+
+            $thumbImgs = this.$thumbsList.find('img');
+            assert.equals(3, $thumbImgs.length);
+            assert.equals(thumb1, $thumbImgs.eq(1).attr('src'));
+            assert.equals(thumb2, $thumbImgs.eq(2).attr('src'));
+
+            assert.equals(preview, $thumbImgs.eq(1).data('preview'));
+
+            assert.equals(original, this.$thumbsList.find('a').eq(1).attr('href'));
+        }
+    };
+}()));
