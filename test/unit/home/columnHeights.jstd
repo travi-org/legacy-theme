@@ -17,25 +17,25 @@ travi.test.testCase('Column Heights Tests', (function () {
         },
 
         'test column heights equal after initialization': function () {
-            expectAsserts(1);
-
             sinon.stub($.fn, 'equalizeBottoms', this.assertProperSelector);
 
             this.home.init();
+
+            assert.calledOnce($.fn.equalizeBottoms);
         },
 
         'test height adjusted when first column height changes': function () {
             this.home.init();
-            expectAsserts(1);
 
             sinon.stub($.fn, 'equalizeBottoms', this.assertProperSelector);
 
-            $('#blogList .entry-message').append('<dt>some more content</dt>').trigger('announce-update');
+            $('#blogList').find('.entry-message').append('<dt>some more content</dt>').trigger('announce-update');
+
+            assert.calledOnce($.fn.equalizeBottoms);
         },
 
         'test height adjusted when second column height changes': function () {
             this.home.init();
-            expectAsserts(1);
 
             sinon.stub($.fn, 'equalizeBottoms', this.assertProperSelector);
 
@@ -43,10 +43,12 @@ travi.test.testCase('Column Heights Tests', (function () {
                 .find('.entry-message')
                 .append('<dt>some more content</dt>')
                 .trigger('announce-update');
+
+            assert.calledOnce($.fn.equalizeBottoms);
         },
 
         assertProperSelector: function () {
-            assertEquals('.updateList dl', $(this).selector);
+            assert.equals('.updateList dl', $(this).selector);
             return this;
         }
     };

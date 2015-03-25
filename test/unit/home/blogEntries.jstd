@@ -47,13 +47,13 @@ travi.test.testCase('Blog Entry Tests', (function () {
         'test that list marked as loading when first call made for entries': function () {
             beforeAjax();
 
-            assertTrue($('#blogList dl').hasClass('loading'));
+            assert.isTrue($('#blogList dl').hasClass('loading'));
         },
 
         'test that list un-marked as loading when ajax completed': function () {
             ajaxComplete();
 
-            assertFalse($('#blogList dl').hasClass('loading'));
+            assert.isFalse($('#blogList dl').hasClass('loading'));
         },
 
         'test that returned entries rendered in template': function () {
@@ -69,8 +69,8 @@ travi.test.testCase('Blog Entry Tests', (function () {
         'test that returned entries added to list in DOM': function () {
             templateCallback('<dt>title</dt><dd>summary</dd>');
 
-            assertEquals(1, $('#blogList dl dt').length);
-            assertEquals(1, $('#blogList dl dd').length);
+            assert.equals(1, $('#blogList dl dt').length);
+            assert.equals(1, $('#blogList dl dd').length);
         }
     };
 }()));

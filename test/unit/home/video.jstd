@@ -77,7 +77,7 @@ travi.test.testCase('HomepageVideoTests', (function () {
         'test bound video lightbox close event': function () {
             sinon.assert.calledOnce(this.events.subscribe);
             sinon.assert.calledWith(this.events.subscribe, this.player.events.LIGHTBOX_CLOSED);
-            assertFunction(this.events.subscribe.getCall(0).args[1]);
+            assert.isFunction(this.events.subscribe.getCall(0).args[1]);
         },
 
         'test video torn down after closed': function () {
