@@ -10,7 +10,7 @@ travi.templates.preLoad('previewPane', '/base/templates/previewPane.tmpl');
 
 //travi.templates.preLoad('updatesList', '/base/test/js/templates/updatesList.tmpl');
 travi.templates.preLoad('thumbs', '/base/test/templates/thumbs.tmpl');
-//travi.templates.preLoad('columns', '/base/test/js/templates/columns.tmpl');
+travi.templates.preLoad('columns', '/base/test/templates/columns.tmpl');
 
 travi.templates.preLoad = $.noop;
 

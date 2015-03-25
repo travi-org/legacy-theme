@@ -1,0 +1,91 @@
+travi.test.testCase('HomepageVideoTests', (function () {
+    'use strict';
+
+    return {
+        common: travi.test.common,
+        events: travi.events,
+        player: travi.video.player,
+
+        home: travi.org.home,
+
+        mobile: 'mobile',
+        standard: 'standard',
+        hd: 'hd',
+
+        width: 35,
+        height: 82,
+
+        setUp: function () {
+            var testCase = this;
+
+            $('body').append($.render.thumbs({
+                thumbs: [
+                    {
+                        mobile: this.mobile,
+                        standard: this.standard,
+                        hd: this.hd,
+                        width: this.width,
+                        height: this.height
+                    }
+                ]
+            }));
+
+            sinon.stub(this.events, 'subscribe', function (eventName, callback) {
+                testCase.lightboxCloseCallback = callback;
+            });
+
+            sinon.stub($, 'ajax');
+
+            sinon.stub(this.player, 'prepare');
+            sinon.stub(this.player, 'play');
+
+            this.home.init();
+        },
+
+        tearDown: function () {
+            this.common.restore([
+                this.player.prepare,
+                this.player.play,
+                this.player.unload,
+                this.events.subscribe,
+                $.ajax
+            ]);
+        },
+
+        'test video prepared and played on thumb click': function () {
+            $('#thumbs').find('img').first().click();
+
+            sinon.assert.calledOnce(this.player.prepare);
+            sinon.assert.calledWith(this.player.prepare, this.mobile, this.standard, this.hd, {
+                width: this.width,
+                height: this.height
+            });
+
+            sinon.assert.calledOnce(this.player.play);
+        },
+
+        'test video is not prepared for non-video related thumbnail': function () {
+            var $thumbs = $('#thumbs');
+
+            $thumbs.append($.render.thumbnail({}));
+            $thumbs.find('img').eq(1).click();
+
+            refute.called(this.player.prepare);
+            refute.called(this.player.play);
+        },
+
+        'test bound video lightbox close event': function () {
+            sinon.assert.calledOnce(this.events.subscribe);
+            sinon.assert.calledWith(this.events.subscribe, this.player.events.LIGHTBOX_CLOSED);
+            assertFunction(this.events.subscribe.getCall(0).args[1]);
+        },
+
+        'test video torn down after closed': function () {
+            sinon.spy(this.player, 'unload');
+
+            this.lightboxCloseCallback();
+
+            sinon.assert.calledOnce(this.player.unload);
+        }
+    };
+}()));
