@@ -16,8 +16,8 @@ travi.templates.preLoad('blogPreview', '/resources/templates/blogEntryPreview.tm
 
     function displayImageInLightbox($thumb) {
         $thumb.closest('a').lightBox({
-            imageLoading: '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-ico-loading.gif',
-            imageBtnClose: '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-btn-close.gif'
+            imageLoading: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-ico-loading.gif',
+            imageBtnClose: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-close.gif'
         }).click();
     }
 

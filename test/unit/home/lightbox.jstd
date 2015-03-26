@@ -23,11 +23,11 @@ travi.test.testCase('HomeLightboxTests', (function () {
             assert.isTrue($('#jquery-lightbox').is(':visible'));
 
             assert.equals(
-                '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-ico-loading.gif',
+                '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-ico-loading.gif',
                 $('#lightbox-loading-link').find('img').attr('src')
             );
             assert.equals(
-                '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-btn-close.gif',
+                '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-close.gif',
                 $('#lightbox-secNav-btnClose').find('img').attr('src')
             );
 
