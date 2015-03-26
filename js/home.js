@@ -15,7 +15,10 @@ travi.templates.preLoad('blogPreview', '/resources/templates/blogEntryPreview.tm
     }
 
     function displayImageInLightbox($thumb) {
-        $thumb.closest('a').lightBox().click();
+        $thumb.closest('a').lightBox({
+            imageLoading: '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-ico-loading.gif',
+            imageBtnClose: '/resources/thirdparty/travi.org-theme/thirdparty/images/lightbox-btn-close.gif'
+        }).click();
     }
 
     function thumbReferencesVideo($thumb) {
@@ -44,15 +47,15 @@ travi.templates.preLoad('blogPreview', '/resources/templates/blogEntryPreview.tm
             type: 'get',
             dataType: 'json',
             beforeSend: function () {
-                $('#blogList dl').addClass('loading');
+                $('#blogList').find('dl').addClass('loading');
             },
             success: function (data) {
                 templates.render('blogPreview', data, function (renderedTemplate) {
-                    $('#blogList dl').html(renderedTemplate);
+                    $('#blogList').find('dl').html(renderedTemplate);
                 });
             },
             complete: function () {
-                $('#blogList dl').removeClass('loading');
+                $('#blogList').find('dl').removeClass('loading');
             }
         });
     }
