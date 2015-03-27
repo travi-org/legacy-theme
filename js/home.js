@@ -17,7 +17,10 @@ travi.templates.preLoad('blogPreview', '/resources/templates/blogEntryPreview.tm
     function displayImageInLightbox($thumb) {
         $thumb.closest('a').lightBox({
             imageLoading: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-ico-loading.gif',
-            imageBtnClose: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-close.gif'
+            imageBtnClose: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-close.gif',
+            imageBtnPrev: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-prev.gif',
+            imageBtnNext: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-next.gif',
+            imageBlank: '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-blank.gif'
         }).click();
     }
 

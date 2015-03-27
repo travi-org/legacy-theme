@@ -1,39 +1,52 @@
 travi.test.testCase('HomeLightboxTests', (function () {
     'use strict';
 
+    var home = travi.org.home,
+
+        original = 'original.jpg',
+        imagesPath = '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/';
+
     return {
-        home: travi.org.home,
+        setUp: function () {
+            sinon.stub($, 'ajax');
+
+            $('body').append($.render.thumbs({thumbs: [
+                { original: original }
+            ]}));
+
+            home.init();
+        },
 
         tearDown: function () {
             travi.test.common.restore([
-                $.ajax
+                $.ajax,
+                $.fn.lightBox
             ]);
         },
 
         'test lightbox shown on click': function () {
-            sinon.stub($, 'ajax');
-            var original = 'original.jpg';
-            $('body').append($.render.thumbs({thumbs: [
-                { original: original }
-            ]}));
-            this.home.init();
-
             $('#thumbs').find('img').eq(0).click();
 
             assert.isTrue($('#jquery-lightbox').is(':visible'));
 
+            assert.equals(imagesPath + 'lightbox-ico-loading.gif', $('#lightbox-loading-link').find('img').attr('src'));
             assert.equals(
-                '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-ico-loading.gif',
-                $('#lightbox-loading-link').find('img').attr('src')
-            );
-            assert.equals(
-                '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/lightbox-btn-close.gif',
+                imagesPath + 'lightbox-btn-close.gif',
                 $('#lightbox-secNav-btnClose').find('img').attr('src')
             );
+        },
 
-            //i would need to trigger the load event on the preloaded image
-            // (which is not exposed outside of the closure) for this to work
-            //assertEquals(original, $('#lightbox-image').attr('src'));
+        'test lightbox enhances proper image': function () {
+            sinon.spy($.fn, 'lightBox');
+
+            $('#thumbs').find('img').eq(0).click();
+
+            assert.equals(original, $.fn.lightBox.returnValues[0].attr('href'));
+            assert.calledWith($.fn.lightBox, sinon.match({
+                imageBlank: imagesPath + 'lightbox-blank.gif',
+                imageBtnNext: imagesPath + 'lightbox-btn-next.gif',
+                imageBtnPrev: imagesPath + 'lightbox-btn-prev.gif'
+            }));
         }
     };
 }()));
