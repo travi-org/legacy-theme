@@ -2,6 +2,8 @@
 travi.test.testCase('GalleryPreviewTests', (function () {
     'use strict';
 
+    var imagesPath = '/resources/thirdparty/travi.org-theme/thirdparty/lightbox/images/';
+
     return {
         common: travi.test.common,
         previewPane: travi.photos.previewPane,
@@ -33,6 +35,7 @@ travi.test.testCase('GalleryPreviewTests', (function () {
 
             sinon.stub(this.player, 'prepare');
             sinon.spy(this.player, 'play');
+            sinon.spy($.fn, 'lightBox');
 
             this.previewPane.init();
 
@@ -47,7 +50,8 @@ travi.test.testCase('GalleryPreviewTests', (function () {
                 this.player.play,
                 this.player.unload,
                 Reflection.add,
-                Reflection.remove
+                Reflection.remove,
+                $.fn.lightBox
             ]);
         },
 
@@ -65,6 +69,13 @@ travi.test.testCase('GalleryPreviewTests', (function () {
                 '/resources/thirdparty/travi-styles/img/progress/large-loading.gif',
                 $imageContainer.find('img#preview_loading').attr('src')
             );
+            assert.calledWith($.fn.lightBox, {
+                imageLoading: imagesPath + 'lightbox-ico-loading.gif',
+                imageBtnClose: imagesPath + 'lightbox-btn-close.gif',
+                imageBlank: imagesPath + 'lightbox-blank.gif',
+                imageBtnNext: imagesPath + 'lightbox-btn-next.gif',
+                imageBtnPrev: imagesPath + 'lightbox-btn-prev.gif'
+            });
         },
 
         'test reflection shown once preview has loaded': function () {
