@@ -1,6 +1,7 @@
 %inline-dl {
   dt {
     clear: left;
+
     &:after {
       content: ':';
     }
