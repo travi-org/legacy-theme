@@ -1,0 +1,13 @@
+%inline-dl {
+  dt {
+    clear: left;
+    &:after {
+      content: ':';
+    }
+  }
+
+  dt,
+  dd {
+    float: left;
+  }
+}
