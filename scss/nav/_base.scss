@@ -1,14 +1,10 @@
 nav {
   background-color: $theme-red;
-
-  &.sideNav {
-    display: none;
-  }
 }
 
 #topNav {
   color: $theme-black;
-  font-family: $font-primary;
+  font-family: $font-heading;
   margin: 0;
   padding: 3px;
 
@@ -66,6 +62,8 @@ ul.sideNav {
 }
 
 .sideNav {
+  display: none;
+
   ul {
     list-style-type: none;
     margin: 2px 0;
