@@ -38,6 +38,14 @@ form {
   }
 }
 
+.textInput,
+.fileInput {
+  background-color: $grey-light;
+  border: $theme-red solid 1px;
+  color: $text-red;
+
+}
+
 // scss-lint:disable QualifyingElement
 input.ui-state-error,
 textarea.ui-state-error,
