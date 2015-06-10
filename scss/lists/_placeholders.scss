@@ -1,7 +1,13 @@
 %inline-dl {
-  dt:before {
-    content: '';
-    display: block;
+  dt {
+    &:before {
+      content: '';
+      display: block;
+    }
+
+    &:after{
+      content: ':';
+    }
   }
 
   dt,
