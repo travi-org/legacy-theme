@@ -1,14 +1,11 @@
 %inline-dl {
-  dt {
-    clear: left;
-
-    &:after {
-      content: ':';
-    }
+  dt:before {
+    content: '';
+    display: block;
   }
 
   dt,
   dd {
-    float: left;
+    display: inline;
   }
 }
