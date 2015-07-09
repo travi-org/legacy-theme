@@ -29,9 +29,9 @@
   position: absolute;
   width: 19px; }
 .js button.slide-right {
-  background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_right_dark.gif'); }
+  background-image: url('/resources/thirdparty/travi.org-theme/dist/img/carousel/arrow_right_dark.gif'); }
 .js button.slide-left {
-  background-image: url('/resources/thirdparty/travi.org-theme/img/carousel/arrow_left_dark.gif'); }
+  background-image: url('/resources/thirdparty/travi.org-theme/dist/img/carousel/arrow_left_dark.gif'); }
 
 #albumList {
   margin: 0; }
@@ -86,7 +86,7 @@
   font-weight: bold; }
 
 #imageContainer {
-  background-image: url(/resources/thirdparty/travi.org-theme/img/bg/bg-7_trans.png);
+  background-image: url(/resources/thirdparty/travi.org-theme/dist/img/bg/bg-7_trans.png);
   color: #666;
   font-family: Verdana, Geneva, Arial, sans-serif;
   font-size: 10px;

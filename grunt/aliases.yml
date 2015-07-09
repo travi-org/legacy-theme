@@ -5,6 +5,7 @@ verify:
   - test
 
 test: karma
+
 lint:
   - scsslint
   - jslint
@@ -13,3 +14,4 @@ lint:
 build:
   - clean
   - sass
+  - imagemin

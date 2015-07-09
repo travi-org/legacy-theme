@@ -402,7 +402,7 @@ header {
   text-align: left; }
 
 body {
-  background: #000 url('/resources/thirdparty/travi.org-theme/img/bg/bg-tireTread.jpg') fixed;
+  background: #000 url('/resources/thirdparty/travi.org-theme/dist/img/bg/bg-tireTread.jpg') fixed;
   color: #fff;
   font: 1em georgia, times, serif;
   font-variant: small-caps; }
@@ -490,7 +490,7 @@ ul.sideNav {
   padding: 0; }
 
 form {
-  background-image: url(/resources/thirdparty/travi.org-theme/img/bg/bg-8_trans.png); }
+  background-image: url(/resources/thirdparty/travi.org-theme/dist/img/bg/bg-8_trans.png); }
   form fieldset legend {
     background-color: #000;
     box-sizing: border-box;

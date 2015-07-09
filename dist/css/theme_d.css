@@ -6,7 +6,7 @@
   background-position: inherit; }
 
 header {
-  background: transparent url('/resources/thirdparty/travi.org-theme/img/titleBanners/truckApex.jpg') no-repeat;
+  background: transparent url('/resources/thirdparty/travi.org-theme/dist/img/titleBanners/truckApex.jpg') no-repeat;
   border-top: 1px solid #fff;
   height: 200px;
   padding: 0; }
@@ -16,7 +16,7 @@ header {
     padding-left: 100px; }
 
 #wrap {
-  background-image: url('/resources/thirdparty/travi.org-theme/img/bg/bg-diamond2back.jpg');
+  background-image: url('/resources/thirdparty/travi.org-theme/dist/img/bg/bg-diamond2back.jpg');
   margin: 0 auto 20px;
   width: 750px; }
 
@@ -37,7 +37,7 @@ header {
   width: 645px; }
 
 .entry {
-  background: #c0c0c0 url('/resources/thirdparty/travi.org-theme/img/bg/bg-diamondplatet.jpg');
+  background: #c0c0c0 url('/resources/thirdparty/travi.org-theme/dist/img/bg/bg-diamondplatet.jpg');
   border: 1px solid #818181;
   color: #111;
   margin: 0 0 5px;
@@ -70,14 +70,14 @@ header {
   background-image: none;
   width: auto; }
 
-.actions {
+form ol.actions {
   margin: 0;
   padding-bottom: 25px;
   padding-right: 43px;
   padding-top: 25px; }
 
 .section {
-  background: #c0c0c0 url('/resources/thirdparty/travi.org-theme/img/bg/bg-diamondplatet.jpg');
+  background: #c0c0c0 url('/resources/thirdparty/travi.org-theme/dist/img/bg/bg-diamondplatet.jpg');
   border: 1px solid #818181;
   color: #fff;
   padding: 5px;
