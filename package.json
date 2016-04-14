@@ -1,5 +1,6 @@
 {
   "name": "travi.org-theme",
+  "version": "0.0.0",
   "private": "true",
   "main": "Gruntfile.js",
   "repository": {
