@@ -3,3 +3,5 @@
 [![Coverage Status](http://img.shields.io/coveralls/travi/travi.org-theme.svg?style=flat)](https://coveralls.io/r/travi/travi.org-theme?branch=master)
 [![Code Climate](http://img.shields.io/codeclimate/github/travi/travi.org-theme.svg?style=flat)](https://codeclimate.com/github/travi/travi.org-theme)
 [![Dependency Status](http://img.shields.io/gemnasium/travi/travi.org-theme.svg?style=flat)](https://gemnasium.com/travi/travi.org-theme)
+
+[![npm](https://img.shields.io/npm/v/travi.org-theme.svg?maxAge=2592000)](https://www.npmjs.com/package/@travi/travi.org-theme)
