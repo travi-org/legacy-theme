@@ -1,6 +1,6 @@
 {
   "name": "@travi/travi.org-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
