@@ -1,14 +1,18 @@
 language: node_js
-
 node_js:
-  - "0.10.33"
-
+- 0.10.33
 before_script:
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - bundle install
-  - bower install
-
+- npm install -g grunt-cli
+- npm install -g bower
+- bundle install
+- bower install
 sudo: false
-
 after_script: grunt coveralls
+deploy:
+  provider: npm
+  email: npm@travi.org
+  api_key:
+    secure: Rf4VTxdLH047cvRw6PuBRhrxwHO/neL53PnWRN3OsuXXDEifzvPR7luo227icPbLmi+QATxvDFF0JkrUsluT7wIRkgLCf8eUqAsHvOGEYAbsvpGd4yH/T6al9kvjg8/HrrIHoXjWCX6m0bi7LiKMLAmr+krIhVMj56GPCkaMoz0=
+  on:
+    tags: true
+    repo: travi/travi.org-theme
