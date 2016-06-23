@@ -12,7 +12,9 @@
   },
   "homepage": "https://github.com/travi/travi.org-theme",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "preversion": "npm test",
+    "prepublish": "grunt build"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
