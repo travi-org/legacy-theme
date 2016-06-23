@@ -1,0 +1,23 @@
+%h1 {
+  color: $text-white;
+  font-family: $font-logo;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-shadow: 5px 5px 5px $text-black;
+}
+
+%h2 {
+  background: $theme-red;
+  border: 1px solid $theme-black;
+  color: $text-black;
+  font: 1.75em $font-heading;
+  font-variant: small-caps;
+  margin: 5px 0;
+  padding: 5px;
+  text-align: left;
+}
+
+%h2-link {
+  color: $text-black;
+}
