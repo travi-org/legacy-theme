@@ -28,7 +28,7 @@
     "grunt-karma-coveralls": "^2.5.3",
     "grunt-sass": "^1.2.0",
     "grunt-scss-lint": "^0.3.4",
-    "karma": "1.1.2",
+    "karma": "1.2.0",
     "karma-coverage": "^1.0.0",
     "karma-jstd-adapter": "0.0.3",
     "karma-junit-reporter": "^1.0.0",
