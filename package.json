@@ -37,7 +37,7 @@
     "load-grunt-config": "^0.19.2",
     "referee": "^1.1.1",
     "referee-sinon": "^1.0.2",
-    "sinon": "~1.17.4",
+    "sinon": "~2.0.0-pre.6",
     "time-grunt": "^1.1.0"
   }
 }
